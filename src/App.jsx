@@ -1,5 +1,4 @@
 
-import { Button } from '@mui/material'
 import './App.css'
 
 function App() {
@@ -7,9 +6,7 @@ function App() {
   return (
     <>
 
-      <Button variant="text">Text</Button>
-      <Button variant="contained">Contained</Button>
-      <Button variant="outlined">Outlined</Button>
+      
 
 
     </>
