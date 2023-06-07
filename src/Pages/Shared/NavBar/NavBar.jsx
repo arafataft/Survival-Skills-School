@@ -11,8 +11,9 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../Providers/AuthProvider';
 
 const pages = [
   { name: 'Home', link: '/' },
@@ -23,6 +24,8 @@ const pages = [
 const settings = [{ name: 'Logout', link: '/logout' }];
 
 function NavBar() {
+  const { user, logOut } = useContext(AuthContext);
+
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -39,6 +42,12 @@ function NavBar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogout = () => {
+    logOut()
+      .then()
+      .catch((error) => console.error(error));
   };
 
   return (
@@ -134,11 +143,17 @@ function NavBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
+            {user ? (
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="User Avatar" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <Button component={Link} to="/login" color="inherit">
+                Login
+              </Button>
+            )}
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -156,7 +171,7 @@ function NavBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting.name} onClick={handleCloseUserMenu} component={Link} to={setting.link}>
+                <MenuItem key={setting.name} onClick={handleLogout} component={Link} to={setting.link}>
                   <Typography textAlign="center">{setting.name}</Typography>
                 </MenuItem>
               ))}
