@@ -10,17 +10,42 @@ import {
   Box,
   Typography,
   Container,
+  InputAdornment,
 } from '@mui/material';
-import { LockOpen } from '@mui/icons-material';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { LockOpen, Visibility, VisibilityOff } from '@mui/icons-material';
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { FaGoogle } from 'react-icons/fa';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const { register, handleSubmit, reset } = useForm();
   const [error, setError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
 
   const onSubmit = (data) => {
-    console.log(data);
-    reset(); // Clear form inputs
+    const { email, password } = data;
+
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        reset(); // Clear form inputs
+        navigate(from);
+        setError(null);
+        console.log('Login success');
+      })
+      .catch((error) => {
+        if (error.code === 'auth/user-not-found') {
+          setError('User not found');
+        } else if (error.code === 'auth/wrong-password') {
+          setError('Invalid password');
+        } else {
+          setError(error.message);
+        }
+        console.error(error.message);
+      });
   };
 
   const handleGoogleLogin = () => {
@@ -29,23 +54,26 @@ const Login = () => {
 
     signInWithPopup(auth, provider)
       .then(() => {
-        // Handle successful login
+        reset(); // Clear form inputs
+        navigate(from);
         setError(null);
-        console.log('Login success');
+        console.log('Login success with Google');
       })
       .catch((error) => {
-        // Handle login error
         setError(error.message);
         console.error(error.message);
       });
   };
 
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" sx={{ my: 'auto', mb: 3, mt: 3 }}>
       <CssBaseline />
       <Box
         sx={{
-          marginTop: 8,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -75,10 +103,21 @@ const Login = () => {
             fullWidth
             name="password"
             label="Password"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             id="password"
             autoComplete="current-password"
             {...register('password', { required: true })}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {showPassword ? (
+                    <VisibilityOff onClick={handleTogglePasswordVisibility} />
+                  ) : (
+                    <Visibility onClick={handleTogglePasswordVisibility} />
+                  )}
+                </InputAdornment>
+              ),
+            }}
           />
 
           {error && (
@@ -90,14 +129,19 @@ const Login = () => {
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Sign In
           </Button>
-          <Grid container>
-            <Grid item>
+          <Grid container justifyContent="center">
+          <Grid item>
               <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
-            <Grid item xs={12}>
-              <Button fullWidth variant="contained" onClick={handleGoogleLogin}>
+            <Grid item xs={12} md={6}>
+              <Button
+                variant="outlined"
+                onClick={handleGoogleLogin}
+                startIcon={<FaGoogle />}
+                fullWidth
+              >
                 Sign in with Google
               </Button>
             </Grid>
