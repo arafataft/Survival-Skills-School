@@ -20,7 +20,7 @@ const pages = [
   { name: 'Classes', link: '/classes' },
   { name: 'Dashboard', link: '/dashboard' },
 ];
-const settings = [{ name: 'Logout', link: '/logout' }];
+const settings = [{ name: 'Logout', link: '/login' }];
 
 function NavBar() {
   const { user, logOut } = useContext(AuthContext);
@@ -101,7 +101,7 @@ function NavBar() {
               ))}
             </Menu>
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 5 }}>
+          <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: {xs:9} }}>
             <Link to='/'>
               <img
                 src="logo.png"
@@ -111,7 +111,7 @@ function NavBar() {
               />
             </Link>
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }}}>
             {pages.map((page) => (
               <Button
                 key={page.name}
@@ -127,9 +127,9 @@ function NavBar() {
 
           <Box sx={{ flexGrow: 0 }}>
             {user ? (
-              <Tooltip title="Open settings">
+              <Tooltip title={user?.displayName ||"Open settings"}>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="User Avatar" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt={user?.displayName || 'name'} src={user?.photoURL} />
                 </IconButton>
               </Tooltip>
             ) : (

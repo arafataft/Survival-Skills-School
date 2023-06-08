@@ -44,13 +44,14 @@ const Login = () => {
         } else {
           setError(error.message);
         }
-        console.error(error.message);
+        // console.error(error.message);
       });
   };
 
   const handleGoogleLogin = () => {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
+    
 
     signInWithPopup(auth, provider)
       .then(() => {
@@ -61,7 +62,7 @@ const Login = () => {
       })
       .catch((error) => {
         setError(error.message);
-        console.error(error.message);
+        // console.error(error.message);
       });
   };
 
