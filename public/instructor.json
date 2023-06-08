@@ -1,0 +1,70 @@
+[
+    {
+      "_id": 1,
+      "image": "https://source.unsplash.com/random/800x699/?instructor",
+      "name": "John Smith",
+      "email": "john.smith@example.com",
+      "numClassesTaken": 4,
+      "classesTaken": [
+        "Class A",
+        "Class B",
+        "Class C",
+        "Class D"
+      ]
+    },
+    {
+      "_id": 2,
+      "image": "https://source.unsplash.com/random/800x610/?instructor",
+      "name": "Jane Doe",
+      "email": "jane.doe@example.com",
+      "numClassesTaken": 2,
+      "classesTaken": [
+        "Class E",
+        "Class F"
+      ]
+    },
+    {
+      "_id": 3,
+      "image": "https://source.unsplash.com/random/800x611/?instructor",
+      "name": "Bob Johnson",
+      "email": "bob.johnson@example.com",
+      "numClassesTaken": 0,
+      "classesTaken": []
+    },
+    {
+      "_id": 4,
+      "image": "https://source.unsplash.com/random/800x615/?instructor",
+      "name": "Alice Carter",
+      "email": "alice.carter@example.com",
+      "numClassesTaken": 1,
+      "classesTaken": [
+        "Class G"
+      ]
+    },
+    {
+      "_id": 5,
+      "image": "https://source.unsplash.com/random/800x612/?instructor",
+      "name": "Mark Davis",
+      "email": "mark.davis@example.com",
+      "numClassesTaken": 3,
+      "classesTaken": [
+        "Class H",
+        "Class I",
+        "Class J"
+      ]
+    },
+    {
+      "_id": 6,
+      "image": "https://source.unsplash.com/random/800x612/?instructor",
+      "name": "Sarah Lee",
+      "email": "sarah.lee@example.com",
+      "numClassesTaken": 5,
+      "classesTaken": [
+        "Class K",
+        "Class L",
+        "Class M",
+        "Class N",
+        "Class O"
+      ]
+    }
+  ]
