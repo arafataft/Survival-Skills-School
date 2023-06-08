@@ -1,0 +1,58 @@
+[
+    {
+        "_id":1,
+      "image": "https://source.unsplash.com/random/800x612/?servival-skill",
+      "name": "Yoga Basics",
+      "instructor": "John Smith",
+      "availableSeats": 10,
+      "price": 15.99
+    },
+    {
+        "_id":2,
+      "image": "https://source.unsplash.com/random/800x653/?servival-skill",
+      "name": "Pilates for Beginners",
+      "instructor": "Jane Doe",
+      "availableSeats": 8,
+      "price": 12.99
+    },
+    {
+        "_id":3,
+      "image": "https://source.unsplash.com/random/800x634/?servival-skill",
+      "name": "Zumba Dance Party",
+      "instructor": "Sarah Johnson",
+      "availableSeats": 15,
+      "price": 9.99
+    },
+    {
+        "_id":4,
+      "image": "https://source.unsplash.com/random/800x633/?servival-skill",
+      "name": "Kickboxing Cardio",
+      "instructor": "Michael Brown",
+      "availableSeats": 12,
+      "price": 14.99
+    },
+    {
+        "_id":5,
+      "image": "https://source.unsplash.com/random/800x600/?servival-skill",
+      "name": "High-Intensity Interval Training (HIIT)",
+      "instructor": "Emily Wilson",
+      "availableSeats": 7,
+      "price": 11.99
+    },
+    {
+        "_id":6,
+      "image": "https://source.unsplash.com/random/800x619/?servival-skill",
+      "name": "Salsa Dance Workshop",
+      "instructor": "Carlos Hernandez",
+      "availableSeats": 20,
+      "price": 8.99
+    },
+    {
+        "_id":7,
+      "image": "https://source.unsplash.com/random/800x611/?servival-skill",
+      "name": "Boxing Fundamentals",
+      "instructor": "David Thompson",
+      "availableSeats": 10,
+      "price": 13.99
+    }
+  ]
