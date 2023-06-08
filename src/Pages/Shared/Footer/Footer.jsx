@@ -64,7 +64,7 @@ const Footer = () => {
     <FooterContainer>
       <FooterRow>
         <FooterSection>
-          <FooterLogo src="/path/to/logo.png" alt="Wild Survival School " />
+          <FooterLogo src="logo.png" style={{height:50}} alt="Wild Survival School " />
           <Typography variant="body2" component="p">
             Explore nature, learn new skills, and have the adventure of a lifetime.
           </Typography>
@@ -74,7 +74,7 @@ const Footer = () => {
             Contact Us
           </Typography>
           <Typography variant="body2" component="p">
-            Email: <FooterLink href="mailto:info@wildsurvivalschool.com">info@wildsurvivalschool.com</FooterLink>
+            Email: <FooterLink href="mailto:info@wildsurvivalschool.com">info@survivalskillsschool.com</FooterLink>
           </Typography>
           <Typography variant="body2" component="p">
             Phone: <FooterLink href="tel:+8801912345678">+8801912345678</FooterLink>
