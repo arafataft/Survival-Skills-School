@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
@@ -51,7 +52,7 @@ const Login = () => {
   const handleGoogleLogin = () => {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
-    
+
 
     signInWithPopup(auth, provider)
       .then(() => {
@@ -131,12 +132,13 @@ const Login = () => {
             Sign In
           </Button>
           <Grid container justifyContent="center">
-          <Grid item>
+            <Grid item>
+              Don't have an account?
               <Link href="/signup" variant="body2">
-                {"Don't have an account? Sign Up"}
+                {" Sign Up"}
               </Link>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={7}>
               <Button
                 variant="outlined"
                 onClick={handleGoogleLogin}
