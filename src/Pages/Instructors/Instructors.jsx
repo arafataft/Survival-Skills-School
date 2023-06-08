@@ -4,7 +4,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Box } from '@mui/material';
+import { Box, Container } from '@mui/material';
 
 export default function Instructors() {
   const [classData, setClassData] = useState(null);
@@ -27,7 +27,7 @@ export default function Instructors() {
   }, []);
 
   return (
-    <div>
+    <Container>
         <Box display="flex" flexDirection="column" alignItems="center">
       <Typography variant="h4" gutterBottom>
         Instructors
@@ -36,7 +36,7 @@ export default function Instructors() {
       <Grid container spacing={2}>
         {classData &&
           classData.map((classItem) => (
-            <Grid item xs={12} sm={6} md={4} key={classItem.id}>
+            <Grid item xs={12} sm={6} md={4} key={classItem._id}>
               <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                   component="img"
@@ -57,6 +57,6 @@ export default function Instructors() {
           ))}
       </Grid>
       </Box>
-    </div>
+    </Container>
   );
 }
