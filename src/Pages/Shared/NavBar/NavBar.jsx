@@ -56,7 +56,7 @@ function NavBar() {
           <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
             <Link to='/'>
               <img
-                src="logo.png"
+                src="/logo.png"
                 alt="Logo"
                 width={110}
                 height={40}

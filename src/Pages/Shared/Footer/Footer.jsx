@@ -64,7 +64,7 @@ const Footer = () => {
     <FooterContainer>
       <FooterRow>
         <FooterSection>
-          <FooterLogo src="logo.png" style={{height:50}} alt="Wild Survival School " />
+          <FooterLogo src="/logo.png" style={{height:50}} alt="Wild Survival School " />
           <Typography variant="body2" component="p">
             Explore nature, learn new skills, and have the adventure of a lifetime.
           </Typography>
