@@ -22,6 +22,7 @@ const SmallButton = styled(Button)(({ theme }) => ({
 const FixedSizeImage = styled('img')({
   width: '70px',
   height: '70px',
+  borderRadius: '8px',
 });
 
 const MySelectedClasses = () => {
