@@ -12,6 +12,7 @@ import AdminHome from "../Pages/Dashboard/AdminDashboard/AdminHome/AdminHome";
 import ManageClasses from "../Pages/Dashboard/AdminDashboard/ManageClasses/ManageClassses";
 import ManageUsers from "../Pages/Dashboard/AdminDashboard/ManageUsers/ManageUsers";
 import MySelectedClasses from "../Pages/Dashboard/StudentDashboard/MySelectedClasses/MySelectedClasses";
+import MyEnrolledClasses from "../Pages/Dashboard/StudentDashboard/MyEnrolledClasses/MyEnrolledClasses";
 
 export const router = createBrowserRouter([
     {
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
             {
               path:'myselectedclasses',
               element:<MySelectedClasses/>
+            },
+            {
+              path:'myenrolledclasses',
+              element:<MyEnrolledClasses/>
             }
           ]
         }
