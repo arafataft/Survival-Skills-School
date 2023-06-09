@@ -9,6 +9,7 @@ import Classes from "../Pages/Classes/Classes";
 import Register from "../Pages/Register/Register";
 import Dashboard from "../Pages/Dashboard/Dashboard/Dashboard";
 import AdminHome from "../Pages/Dashboard/AdminDashboard/AdminHome/AdminHome";
+import ManageClasses from "../Pages/Dashboard/AdminDashboard/ManageClasses/ManageClassses";
 
 export const router = createBrowserRouter([
     {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
             {
               path:'',
               element:<AdminHome/>
+            },
+            {
+              path:'manageclasses',
+              element:<ManageClasses/>
             }
           ]
         }
