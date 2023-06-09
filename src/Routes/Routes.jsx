@@ -15,6 +15,7 @@ import MySelectedClasses from "../Pages/Dashboard/StudentDashboard/MySelectedCla
 import MyEnrolledClasses from "../Pages/Dashboard/StudentDashboard/MyEnrolledClasses/MyEnrolledClasses";
 import Payment from "../Pages/Dashboard/StudentDashboard/Payment/Payment";
 import PaymentHistory from "../Pages/Dashboard/StudentDashboard/PaymentHistory/PaymentHistory";
+import MyClasses from "../Pages/Dashboard/InstructorDashboard/MyClasses/MyClasses";
 
 export const router = createBrowserRouter([
     {
@@ -72,6 +73,10 @@ export const router = createBrowserRouter([
             {
               path:'paymenthistory',
               element:<PaymentHistory/>
+            },
+            {
+              path:'myclasses',
+              element:<MyClasses/>
             }
           ]
         }
