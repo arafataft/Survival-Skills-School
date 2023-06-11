@@ -10,6 +10,7 @@ const AddaClass = () => {
   const { axiosSecure } = useAxiosSecure();
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm();
@@ -26,6 +27,7 @@ const AddaClass = () => {
     try {
       const response = await axiosSecure.post('/classes', data);
       if (response.status === 200) {
+        reset();
         console.log('Class added successfully');
       } else {
         console.log('Error adding class');
@@ -50,7 +52,7 @@ const AddaClass = () => {
               variant="outlined"
               fullWidth
               {...register('className', { required: true })}
-              error={errors.className}
+              error={Boolean(errors.className)}
               helperText={errors.className ? 'This field is required' : ''}
             />
           </Box>
@@ -62,7 +64,7 @@ const AddaClass = () => {
               variant="outlined"
               fullWidth
               {...register('classImage', { required: true })}
-              error={errors.classImage}
+              error={Boolean(errors.classImage)}
               helperText={errors.classImage ? 'This field is required' : ''}
             />
           </Box>
@@ -95,9 +97,9 @@ const AddaClass = () => {
               label="Available Seats"
               variant="outlined"
               fullWidth
-              {...register('availableSeats', { required: true })}
-              error={errors.availableSeats}
-              helperText={errors.availableSeats ? 'This field is required' : ''}
+              {...register('availableSeats', { required: true, pattern: /^[0-9]+$/ })}
+              error={Boolean(errors.availableSeats)}
+              helperText={errors.availableSeats ? 'This field is required and must be a number' : ''}
             />
           </Box>
 
@@ -107,9 +109,9 @@ const AddaClass = () => {
               label="Price"
               variant="outlined"
               fullWidth
-              {...register('price', { required: true })}
-              error={errors.price}
-              helperText={errors.price ? 'This field is required' : ''}
+              {...register('price', { required: true, pattern: /^[0-9]+$/ })}
+              error={Boolean(errors.price)}
+              helperText={errors.price ? 'This field is required and must be a number' : ''}
             />
           </Box>
 
