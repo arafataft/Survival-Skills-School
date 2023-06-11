@@ -1,12 +1,13 @@
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Container, TextField, Button, Typography, Box } from '@mui/material';
-// import { toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+
 import { AuthContext } from '../../../../Providers/AuthProvider';
+import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 
 const AddaClass = () => {
   const { user } = useContext(AuthContext);
+  const { axiosSecure } = useAxiosSecure();
   const {
     register,
     handleSubmit,
@@ -16,19 +17,15 @@ const AddaClass = () => {
 
 
   const onSubmit = async (data) => {
-    data.instructorName = user.displayName;
-    data.instructorEmail = user.email;
+    data.instructorName = user?.displayName;
+    data.instructorEmail = user?.email;
     data.status = 'pending';
+    data.enroll = 0;
+    console.log(data);
     setIsSubmitting(true);
     try {
-      const response = await fetch('https://example-api.com/classes', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
+      const response = await axiosSecure.post('/classes', data);
+      if (response.status === 200) {
         console.log('Class added successfully');
       } else {
         console.log('Error adding class');
@@ -73,7 +70,7 @@ const AddaClass = () => {
           <Box sx={{ mb: 3 }}>
             <TextField
               id="instructorName"
-              label="Instructor Name"
+              label={user?.displayName}
               variant="outlined"
               fullWidth
               defaultValue={user?.displayName}
@@ -84,7 +81,7 @@ const AddaClass = () => {
           <Box sx={{ mb: 3 }}>
             <TextField
               id="instructorEmail"
-              label="Instructor Email"
+              label={user?.email}
               variant="outlined"
               fullWidth
               defaultValue={user?.email}
