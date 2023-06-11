@@ -14,16 +14,23 @@ import {
 import { AuthContext } from '../../Providers/AuthProvider';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { FaGoogle } from 'react-icons/fa';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
+import axios from 'axios';
+import { app } from '../../firebase/firebase.config';
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const { handleSubmit, register, reset, watch, formState: { errors } } = useForm();
   const [error, setError] = useState(null);
+  const { axiosSecure } = useAxiosSecure();
 
-  const handleRegister = (data) => {
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  const handleRegister = async (data) => {
     const { name, photo, email, password, confirmPassword } = data;
 
     // Password validation checks
@@ -51,15 +58,15 @@ const Register = () => {
       return;
     }
 
-    createUser(email, password, name, photo)
-      .then(() => {
-        alert('Registration successful! Please Login');
-        setError('');
-        navigate('/login');
-      })
-      .catch((error) => {
-        setError(error.code);
-      });
+    try {
+      await createUser(email, password, name, photo);
+      await axiosSecure.post('/users', { name, email, photo }); // Replace with the appropriate endpoint for user registration
+      alert('Registration successful! Please Login');
+      setError('');
+      navigate('/login');
+    } catch (error) {
+      setError(error.message);
+    }
 
     reset();
   };
@@ -67,18 +74,26 @@ const Register = () => {
   const password = watch('password');
 
   const handleGoogleLogin = () => {
-    const auth = getAuth();
-    const provider = new GoogleAuthProvider();
+    // Handle Google Sign-In
 
     signInWithPopup(auth, provider)
-      .then(() => {
-        reset(); // Clear form inputs
-        setError(null);
-        console.log('Login success with Google');
+      .then((result) => {
+        const { displayName, email } = result.user;
+        const saveUser = { name: displayName, email };
+
+        axios
+          .post('http://localhost:5000/users', saveUser)
+          .then(() => {
+            alert('Registration successful! Please Login');
+            setError('');
+            navigate('/login');
+          })
+          .catch((error) => {
+            setError(error.response.data);
+          });
       })
       .catch((error) => {
         setError(error.message);
-        console.error(error.message);
       });
   };
 
