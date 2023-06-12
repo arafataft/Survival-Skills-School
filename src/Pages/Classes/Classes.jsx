@@ -28,33 +28,34 @@ export default function Classes() {
       navigate('/login');
       return;
     }
-
+  
     if (classItem.availableSeats === 0) {
       alert('No available seats for this class.');
       return;
     }
-
+  
     const selectData = {
       classId: classItem._id,
       className: classItem.className,
       classImage: classItem.classImage,
       availableSeat: classItem.availableSeats,
-      userEmail:user?.email,
+      userEmail: user?.email,
       price: classItem.price,
       instructorName: classItem.instructorName,
       instructorEmail: classItem.instructorEmail,
       instructorImage: classItem.instructorImage
     };
-
+  
     try {
       await axiosSecure.post('/select', selectData);
       alert('Class selected successfully!');
     } catch (error) {
       console.error(error);
-      alert('Failed to select the class.');
+      alert('Failed to Add. ' + error.response.data.message); // Display the error message returned by the backend
     }
     refetch();
   };
+  
 
   if (isLoading) {
     return <span>Loading...</span>;
