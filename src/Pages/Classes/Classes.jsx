@@ -1,5 +1,5 @@
-import { useEffect, useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate from React Router
+import {  useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -8,37 +8,23 @@ import Typography from '@mui/material/Typography';
 import { Box, Button, Container } from '@mui/material';
 import { AuthContext } from '../../Providers/AuthProvider';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
-
+import { useQuery } from '@tanstack/react-query';
 
 export default function Classes() {
-  const [classData, setClassData] = useState(null);
   const { user } = useContext(AuthContext);
-  const navigate = useNavigate(); // Get the navigate function from React Router
+  const navigate = useNavigate();
   const { axiosSecure } = useAxiosSecure();
 
+  const { data: classData = [], isLoading, isError, refetch } = useQuery({
+    queryKey: ['classes'],
+    queryFn: async () => {
+      const response = await axiosSecure.get('/classes');
+      return response.data;
+    },
+  });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axiosSecure.get('/classes');
-        if (response.status === 200) {
-          const data = response.data;
-          setClassData(data);
-        } else {
-          throw new Error('Failed to fetch class data');
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-  
-    fetchData();
-  }, []);
-  
-
-  const handleSelect = (classItem) => {
+  const handleSelect = async (classItem) => {
     if (!user) {
-      // Redirect to the login route if the user is not logged in
       navigate('/login');
       return;
     }
@@ -48,9 +34,34 @@ export default function Classes() {
       return;
     }
 
-    // Perform the selection logic here
-    // ...
+    const selectData = {
+      classId: classItem._id,
+      className: classItem.className,
+      classImage: classItem.classImage,
+      availableSeat: classItem.availableSeats,
+      price: classItem.price,
+      instructorName: classItem.instructorName,
+      instructorEmail: classItem.instructorEmail,
+      instructorImage: classItem.instructorImage
+    };
+
+    try {
+      await axiosSecure.post('/select', selectData);
+      alert('Class selected successfully!');
+    } catch (error) {
+      console.error(error);
+      alert('Failed to select the class.');
+    }
+    refetch();
   };
+
+  if (isLoading) {
+    return <span>Loading...</span>;
+  }
+
+  if (isError) {
+    return <span>Error: {isError.message}</span>;
+  }
 
   return (
     <Container maxWidth="lg">
@@ -60,42 +71,41 @@ export default function Classes() {
         </Typography>
 
         <Grid container spacing={2}>
-          {classData &&
-            classData.map((classItem) => (
-              <Grid item xs={12} sm={6} md={4} key={classItem._id}>
-                <Card sx={{ maxWidth: 345 }} style={classItem.availableSeats === 0 ? { backgroundColor: 'red' } : {}}>
-                  <CardMedia
-                    component="img"
-                    height="140"
-                    image={classItem.classImage}
-                    alt={classItem.name}
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="body" component="div">
-                      {classItem.className}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Instructor: {classItem.instructorName}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Available Seat: {classItem.availableSeats}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Price: {classItem.price}
-                    </Typography>
-                    <Button
+          {classData.map((classItem) => (
+            <Grid item xs={12} sm={6} md={4} key={classItem._id}>
+              <Card sx={{ maxWidth: 345 }} style={classItem.availableSeats === 0 ? { backgroundColor: 'red' } : {}}>
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image={classItem.classImage}
+                  alt={classItem.className}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="body" component="div">
+                    {classItem.className}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Instructor: {classItem.instructorName}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Available Seat: {classItem.availableSeats}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Price: {classItem.price}
+                  </Typography>
+                  <Button
                     variant='outlined'
-                      onClick={() => handleSelect(classItem)}
-                      disabled={classItem.availableSeats === 0}
-                    >
-                      Select
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
+                    onClick={() => handleSelect(classItem)}
+                    disabled={classItem.availableSeats === 0}
+                  >
+                    Select
+                  </Button>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
         </Grid>
       </Box>
-    </Container >
+    </Container>
   );
 }
