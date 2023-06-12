@@ -7,29 +7,34 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Box, Button, Container } from '@mui/material';
 import { AuthContext } from '../../Providers/AuthProvider';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 
 export default function Classes() {
   const [classData, setClassData] = useState(null);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate(); // Get the navigate function from React Router
+  const { axiosSecure } = useAxiosSecure();
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('classes.json');
-        if (!response.ok) {
+        const response = await axiosSecure.get('/classes');
+        if (response.status === 200) {
+          const data = response.data;
+          setClassData(data);
+        } else {
           throw new Error('Failed to fetch class data');
         }
-        const data = await response.json();
-        setClassData(data);
       } catch (error) {
         console.error(error);
       }
     };
-
+  
     fetchData();
   }, []);
+  
 
   const handleSelect = (classItem) => {
     if (!user) {
@@ -62,15 +67,15 @@ export default function Classes() {
                   <CardMedia
                     component="img"
                     height="140"
-                    image={classItem.image}
+                    image={classItem.classImage}
                     alt={classItem.name}
                   />
                   <CardContent>
                     <Typography gutterBottom variant="body" component="div">
-                      {classItem.name}
+                      {classItem.className}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      Instructor: {classItem.instructor}
+                      Instructor: {classItem.instructorName}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                       Available Seat: {classItem.availableSeats}

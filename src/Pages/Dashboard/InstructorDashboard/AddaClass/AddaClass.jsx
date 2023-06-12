@@ -20,6 +20,7 @@ const AddaClass = () => {
   const onSubmit = async (data) => {
     data.instructorName = user?.displayName;
     data.instructorEmail = user?.email;
+    data.instructorImage = user?.photoURL||``;
     data.status = 'pending';
     data.enroll = 0;
     console.log(data);
