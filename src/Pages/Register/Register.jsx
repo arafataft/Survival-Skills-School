@@ -60,7 +60,7 @@ const Register = () => {
 
     try {
       await createUser(email, password, name, photo);
-      await axiosSecure.post('/users', { name, email, photo }); // Replace with the appropriate endpoint for user registration
+      await axiosSecure.post('/users', { name, email, photo,role:'student' }); // Replace with the appropriate endpoint for user registration
       alert('Registration successful! Please Login');
       setError('');
       navigate('/login');
@@ -78,8 +78,8 @@ const Register = () => {
 
     signInWithPopup(auth, provider)
       .then((result) => {
-        const { displayName, email } = result.user;
-        const saveUser = { name: displayName, email };
+        const { displayName, email,photoURL } = result.user;
+        const saveUser = { name: displayName, email, photo:photoURL, role:'student' };
 
         axios
           .post('http://localhost:5000/users', saveUser)

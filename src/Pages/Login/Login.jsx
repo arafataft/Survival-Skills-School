@@ -58,13 +58,13 @@ const Login = () => {
 
     signInWithPopup(auth, provider)
       .then((result) => {
-        const { displayName, email } = result.user;
-        const saveUser = { name: displayName, email };
+        const { displayName, email, photoURL } = result.user;
+        const saveUser = { name: displayName, email, photo:photoURL ,role:'student'};
 
         axios
           .post('http://localhost:5000/users', saveUser)
           .then(() => {
-            alert('Registration successful! Please Login');
+            alert('login successful! ');
             setError('');
             navigate(from);
           })
