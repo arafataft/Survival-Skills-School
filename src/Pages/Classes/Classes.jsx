@@ -39,6 +39,7 @@ export default function Classes() {
       className: classItem.className,
       classImage: classItem.classImage,
       availableSeat: classItem.availableSeats,
+      userEmail:user?.email,
       price: classItem.price,
       instructorName: classItem.instructorName,
       instructorEmail: classItem.instructorEmail,
