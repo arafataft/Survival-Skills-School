@@ -8,8 +8,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/system';
-// import useAxiosSecure from '../../hooks/useAxiosSecure';
-// import { AuthContext } from '../../Providers/AuthProvider';
 import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 import { AuthContext } from '../../../../Providers/AuthProvider';
 
@@ -43,7 +41,6 @@ const MySelectedClasses = () => {
         console.error(error);
       }
     };
-    
 
     if (user) {
       fetchSelectedClasses();
@@ -54,7 +51,7 @@ const MySelectedClasses = () => {
     try {
       await axiosSecure.delete(`/select/${classId}`);
       setSelectedClasses((prevSelectedClasses) =>
-        prevSelectedClasses.filter((classItem) => classItem.id !== classId)
+        prevSelectedClasses.filter((classItem) => classItem._id !== classId)
       );
       alert('Class deleted successfully!');
     } catch (error) {
@@ -89,10 +86,10 @@ const MySelectedClasses = () => {
               <SmallTextCell>{classItem.availableSeat}</SmallTextCell>
               <SmallTextCell>{classItem.price}</SmallTextCell>
               <TableCell>
-                <SmallButton variant="outlined" onClick={() => handleDeleteClass(classItem.classId)}>
+                <SmallButton variant="outlined" onClick={() => handleDeleteClass(classItem._id)}>
                   Delete
                 </SmallButton>
-                <SmallButton variant="outlined" onClick={() => handlePay(classItem.classId)}>
+                <SmallButton variant="outlined" onClick={() => handlePay(classItem._id)}>
                   Pay
                 </SmallButton>
               </TableCell>
