@@ -17,11 +17,13 @@ import Payment from "../Pages/Dashboard/StudentDashboard/Payment/Payment";
 import PaymentHistory from "../Pages/Dashboard/StudentDashboard/PaymentHistory/PaymentHistory";
 import MyClasses from "../Pages/Dashboard/InstructorDashboard/MyClasses/MyClasses";
 import AddaClass from "../Pages/Dashboard/InstructorDashboard/AddaClass/AddaClass";
+import ErrorPage from "../Pages/ErrorPages/ErrorPages";
 
 export const router = createBrowserRouter([
     {
       path: "/",
       element: <Main/>,
+      errorElement:<ErrorPage/>,
       children:[
         {
             path:"/",
