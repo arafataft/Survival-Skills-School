@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,6 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/system';
+import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 
 const SmallTextCell = styled(TableCell)(() => ({
   fontSize: '0.65rem',
@@ -26,33 +27,48 @@ const FixedSizeRoundedImage = styled('img')({
 });
 
 const ManageUsers = () => {
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      image: 'https://source.unsplash.com/random/800x800/?user',
-      name: 'John Doe',
-      email: 'johndoe@example.com',
-      role: 'student',
-    },
-    // Add more user objects here
-  ]);
+  const [users, setUsers] = useState([]);
+  const { axiosSecure } = useAxiosSecure();
 
-  const handleMakeInstructor = (userId) => {
-    setUsers((prevUsers) =>
-      prevUsers.map((user) => ({
-        ...user,
-        role: user.id === userId ? 'instructor' : user.role,
-      }))
-    );
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axiosSecure.get('/users');
+        setUsers(response.data);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
+    };
+
+    fetchUsers();
+  }, [axiosSecure]);
+
+  const handleMakeInstructor = async (userId) => {
+    try {
+      await axiosSecure.put(`/users/${userId}/role`, { role: 'instructor' });
+      setUsers((prevUsers) =>
+        prevUsers.map((user) => ({
+          ...user,
+          role: user._id === userId ? 'instructor' : user.role,
+        }))
+      );
+    } catch (error) {
+      console.error('Error updating user role:', error);
+    }
   };
 
-  const handleMakeAdmin = (userId) => {
-    setUsers((prevUsers) =>
-      prevUsers.map((user) => ({
-        ...user,
-        role: user.id === userId ? 'admin' : user.role,
-      }))
-    );
+  const handleMakeAdmin = async (userId) => {
+    try {
+      await axiosSecure.put(`/users/${userId}/role`, { role: 'admin' });
+      setUsers((prevUsers) =>
+        prevUsers.map((user) => ({
+          ...user,
+          role: user._id === userId ? 'admin' : user.role,
+        }))
+      );
+    } catch (error) {
+      console.error('Error updating user role:', error);
+    }
   };
 
   return (
@@ -69,9 +85,9 @@ const ManageUsers = () => {
         </TableHead>
         <TableBody>
           {users.map((user) => (
-            <TableRow key={user.id}>
+            <TableRow key={user._id}>
               <TableCell>
-                <FixedSizeRoundedImage src={user.image} alt={user.name} />
+                <FixedSizeRoundedImage src={user.photo} alt={user.name} />
               </TableCell>
               <SmallTextCell>{user.name}</SmallTextCell>
               <SmallTextCell>{user.email}</SmallTextCell>
@@ -79,14 +95,14 @@ const ManageUsers = () => {
               <TableCell>
                 <SmallButton
                   variant="outlined"
-                  onClick={() => handleMakeInstructor(user.id)}
+                  onClick={() => handleMakeInstructor(user._id)}
                   disabled={user.role === 'instructor'}
                 >
                   Make Instructor
                 </SmallButton>
                 <SmallButton
                   variant="outlined"
-                  onClick={() => handleMakeAdmin(user.id)}
+                  onClick={() => handleMakeAdmin(user._id)}
                   disabled={user.role === 'admin'}
                 >
                   Make Admin
