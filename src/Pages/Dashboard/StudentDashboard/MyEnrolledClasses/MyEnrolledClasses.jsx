@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,6 +7,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/system';
+import useAxiosSecure from '../../../../hooks/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
 
 const SmallTextCell = styled(TableCell)(() => ({
   fontSize: '0.65rem',
@@ -14,21 +17,31 @@ const SmallTextCell = styled(TableCell)(() => ({
 const FixedSizeImage = styled('img')({
   width: '70px',
   height: '70px',
-  borderRadius:'8px'
+  borderRadius: '8px',
 });
 
 const MyEnrolledClasses = () => {
-  const enrolledClasses = [
-    {
-      id: 1,
-      image: 'https://source.unsplash.com/random/800x600/?class',
-      className: 'Class A',
-      instructorName: 'John Doe',
-      availableSeats: 5,
-      price: 100,
+  const { axiosSecure } = useAxiosSecure();
+
+  const { data: enrolledClasses = [], isLoading, isError, refetch } = useQuery({
+    queryKey: ['enrolled-Classes'],
+    queryFn: async () => {
+      const response = await axiosSecure.get('/enrolled-classes');
+      return response.data;
     },
-    // Add more enrolled classes here
-  ];
+  });
+
+  useEffect(() => {
+    refetch(); 
+  }, [axiosSecure, refetch]);
+
+  if (isLoading) {
+    return <span>Loading...</span>;
+  }
+
+  if (isError) {
+    return <span>Error: {isError.message}</span>;
+  }
 
   return (
     <TableContainer component={Paper}>
@@ -38,19 +51,17 @@ const MyEnrolledClasses = () => {
             <SmallTextCell>Class Image</SmallTextCell>
             <SmallTextCell>Class Name</SmallTextCell>
             <SmallTextCell>Instructor Name</SmallTextCell>
-            <SmallTextCell>Available Seats</SmallTextCell>
             <SmallTextCell>Price</SmallTextCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {enrolledClasses.map((classItem) => (
-            <TableRow key={classItem.id}>
+            <TableRow key={classItem._id}>
               <TableCell>
-                <FixedSizeImage src={classItem.image} alt={classItem.className} />
+                <FixedSizeImage src={classItem.classImage} alt={classItem.className} />
               </TableCell>
               <SmallTextCell>{classItem.className}</SmallTextCell>
               <SmallTextCell>{classItem.instructorName}</SmallTextCell>
-              <SmallTextCell>{classItem.availableSeats}</SmallTextCell>
               <SmallTextCell>{classItem.price}</SmallTextCell>
             </TableRow>
           ))}
