@@ -18,6 +18,7 @@ const AddaClass = () => {
 
 
   const onSubmit = async (data) => {
+    data.availableSeats = parseInt(data.availableSeats, 10);
     data.instructorName = user?.displayName;
     data.instructorEmail = user?.email;
     data.instructorImage = user?.photoURL||``;
