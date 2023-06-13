@@ -7,6 +7,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/system';
+import { useQuery } from '@tanstack/react-query';
+import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 
 const SmallTextCell = styled(TableCell)(() => ({
   fontSize: '0.65rem',
@@ -26,22 +28,18 @@ const FixedSizeImage = styled('img')({
 });
 
 const ManageClasses = () => {
-  const classes = [
-    {
-      id: 1,
-      image: 'https://source.unsplash.com/random/800x612/?camp',
-      className: 'Class A',
-      instructorName: 'John Doe',
-      instructorEmail: 'johndoe@example.com',
-      availableSeats: 10,
-      price: 50,
-      status: 'Pending',
+  const { axiosSecure } = useAxiosSecure();
+  const { data: classes = [], isLoading, isError, refetch } = useQuery({
+    queryKey: ['classes'],
+    queryFn: async () => {
+      const response = await axiosSecure.get('/classes');
+      return response.data;
     },
-    // Add more class objects here
-  ];
+  });
 
   const handleApprove = (classId) => {
     console.log(`Approve class with id ${classId}`);
+    refetch();
   };
 
   const handleDeny = (classId) => {
@@ -52,6 +50,13 @@ const ManageClasses = () => {
     console.log(`Send feedback for class with id ${classId}`);
   };
 
+  if (isLoading) {
+    return <span>Loading...</span>;
+  }
+
+  if (isError) {
+    return <span>Error: {isError.message}</span>;
+  }
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="manage classes table">
@@ -69,9 +74,9 @@ const ManageClasses = () => {
         </TableHead>
         <TableBody>
           {classes.map((classItem) => (
-            <TableRow key={classItem.id}>
+            <TableRow key={classItem._id}>
               <TableCell>
-                <FixedSizeImage src={classItem.image} alt={classItem.className} />
+                <FixedSizeImage src={classItem.classImage} alt={classItem.className} />
               </TableCell>
               <SmallTextCell>{classItem.className}</SmallTextCell>
               <SmallTextCell>{classItem.instructorName}</SmallTextCell>
@@ -80,13 +85,13 @@ const ManageClasses = () => {
               <SmallTextCell>{classItem.price}</SmallTextCell>
               <SmallTextCell>{classItem.status}</SmallTextCell>
               <TableCell>
-                <SmallButton variant="outlined" onClick={() => handleApprove(classItem.id)}>
+                <SmallButton variant="outlined" onClick={() => handleApprove(classItem._id)}>
                   Approve
                 </SmallButton>
-                <SmallButton variant="outlined" onClick={() => handleDeny(classItem.id)}>
+                <SmallButton variant="outlined" onClick={() => handleDeny(classItem._id)}>
                   Deny
                 </SmallButton>
-                <SmallButton variant="outlined" onClick={() => handleFeedback(classItem.id)}>
+                <SmallButton variant="outlined" onClick={() => handleFeedback(classItem._id)}>
                   Send Feedback
                 </SmallButton>
               </TableCell>
