@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import { styled } from '@mui/system';
 import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 import { AuthContext } from '../../../../Providers/AuthProvider';
+import { useNavigate } from 'react-router-dom';
 
 const SmallTextCell = styled(TableCell)(() => ({
   fontSize: '0.65rem',
@@ -31,6 +32,7 @@ const MySelectedClasses = () => {
   const { user } = useContext(AuthContext);
   const { axiosSecure } = useAxiosSecure();
   const [selectedClasses, setSelectedClasses] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchSelectedClasses = async () => {
@@ -60,8 +62,8 @@ const MySelectedClasses = () => {
     }
   };
 
-  const handlePay = (classId) => {
-    console.log(`Pay for class with id ${classId}`);
+  const handlePayButton = (classItem) => {
+    navigate('/dashboard/payment', { state: { classItem } });
   };
 
   return (
@@ -89,7 +91,7 @@ const MySelectedClasses = () => {
                 <SmallButton variant="outlined" onClick={() => handleDeleteClass(classItem._id)}>
                   Delete
                 </SmallButton>
-                <SmallButton variant="outlined" onClick={() => handlePay(classItem._id)}>
+                <SmallButton variant="outlined" onClick={() => handlePayButton(classItem)}>
                   Pay
                 </SmallButton>
               </TableCell>
