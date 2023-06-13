@@ -22,6 +22,7 @@ const AddaClass = () => {
     data.instructorName = user?.displayName;
     data.instructorEmail = user?.email;
     data.instructorImage = user?.photoURL||``;
+    data.feedback = '',
     data.status = 'pending';
     data.enroll = 0;
     console.log(data);
