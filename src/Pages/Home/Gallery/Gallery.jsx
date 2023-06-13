@@ -48,69 +48,57 @@ const Gallery = () => {
     {
         id: 1,
         src: 'https://source.unsplash.com/random/800x600/?survive-camp',
-        alt: 'Lego Toys',
       },
       {
         id: 2,
         src: 'https://source.unsplash.com/random/800x601/?survive-camp',
-        alt: 'Lego Toys',
       },
       {
         id: 3,
         src: 'https://source.unsplash.com/random/800x602/?survive-camp',
-        alt: 'Lego Toys',
       },
       {
         id: 4,
         src: 'https://source.unsplash.com/random/800x603/?survive-camp',
-        alt: 'Lego Toys',
       },
       {
         id: 5,
         src: 'https://source.unsplash.com/random/800x604/?survive-camp',
-        alt: 'Lego Toys',
       },
       {
         id: 6,
         src: 'https://source.unsplash.com/random/800x605/?survive-camp',
-        alt: 'Lego Toys',
       },
       {
         id: 7,
         src: 'https://source.unsplash.com/random/800x606/?survive-camp',
-        alt: 'Lego Toys',
       },
       {
         id: 8,
         src: 'https://source.unsplash.com/random/800x607/?survive-camp',
-        alt: 'Lego Toys',
       },
       {
         id: 9,
         src: 'https://source.unsplash.com/random/800x608/?survive-camp',
-        alt: 'Lego Toys',
       },
       {
         id: 10,
         src: 'https://source.unsplash.com/random/800x610/?survive-camp',
-        alt: 'Lego Toys',
       },
       {
         id: 11,
         src: 'https://source.unsplash.com/random/800x611/?survive-camp',
-        alt: 'Lego Toys',
       },
       {
         id: 12,
         src: 'https://source.unsplash.com/random/800x612/?survive-camp',
-        alt: 'Lego Toys',
       },
   ];
 
   return (
     <GallerySection>
       <Container>
-        <SectionTitle variant="h4" component="h2">
+        <SectionTitle variant="h4" component="h4">
           Our Gallery
         </SectionTitle>
         <Grid container spacing={2}>
