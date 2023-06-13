@@ -16,9 +16,9 @@ export default function Classes() {
   const { axiosSecure } = useAxiosSecure();
 
   const { data: classData = [], isLoading, isError, refetch } = useQuery({
-    queryKey: ['classes'],
+    queryKey: ['approveclasses'],
     queryFn: async () => {
-      const response = await axiosSecure.get('/classes');
+      const response = await axiosSecure.get('/approveclasses');
       return response.data;
     },
   });
