@@ -96,7 +96,7 @@ const Footer = () => {
 
       <FooterCopyright>
         <Typography variant="body2" component="p">
-          &copy; {new Date().getFullYear()} Wild Survival School. All rights reserved.
+          &copy; {new Date().getFullYear()} Survival Skills School. All rights reserved.
         </Typography>
       </FooterCopyright>
     </FooterContainer>
