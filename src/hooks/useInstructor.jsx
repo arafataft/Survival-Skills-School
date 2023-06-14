@@ -10,7 +10,7 @@ const useInstructor = () => {
     const fetchInstructorStatus = async () => {
       try {
         if (!loading && user) {
-          const response = await fetch(`http://localhost:5000/users/instructor/${user.email}`);
+          const response = await fetch(`https://survival-skills-school.vercel.app/users/instructor/${user.email}`);
           const data = await response.json();
           setIsInstructor(data.instructor);
         }

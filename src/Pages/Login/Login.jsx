@@ -62,7 +62,7 @@ const Login = () => {
         const saveUser = { name: displayName, email, photo:photoURL ,role:'student'};
 
         axios
-          .post('http://localhost:5000/users', saveUser)
+          .post('https://survival-skills-school.vercel.app/users', saveUser)
           .then(() => {
             alert('login successful! ');
             setError('');

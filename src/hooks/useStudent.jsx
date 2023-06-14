@@ -10,7 +10,7 @@ const useStudent = () => {
     const fetchStudentStatus = async () => {
       try {
         if (!loading && user) {
-          const response = await fetch(`http://localhost:5000/users/student/${user.email}`);
+          const response = await fetch(`https://survival-skills-school.vercel.app/users/student/${user.email}`);
           const data = await response.json();
           setIsStudent(data.student);
         }

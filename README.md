@@ -26,5 +26,5 @@ The Survival Skills Camps website incorporates the following tools:
 
 ## Live Site
 
-- [LegoLand Toy](https://legoland-toys.web.app/)
+- [Survival Skills School](https://wild-survival-school.web.app/)
 

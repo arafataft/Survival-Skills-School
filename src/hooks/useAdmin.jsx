@@ -10,7 +10,7 @@ const useAdmin = () => {
     const fetchAdminStatus = async () => {
       try {
         if (!loading && user) {
-          const response = await fetch(`http://localhost:5000/users/admin/${user.email}`);
+          const response = await fetch(`https://survival-skills-school.vercel.app/users/admin/${user.email}`);
           const data = await response.json();
           setIsAdmin(data.admin);
         }
