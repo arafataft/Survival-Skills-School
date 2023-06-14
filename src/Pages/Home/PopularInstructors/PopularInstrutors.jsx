@@ -5,26 +5,24 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Box, Container } from '@mui/material';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 export default function PopularInstructors() {
     const [classData, setClassData] = useState(null);
+    const { axiosSecure } = useAxiosSecure();
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const response = await fetch('instructor.json');
-                if (!response.ok) {
-                    throw new Error('Failed to fetch class data');
-                }
-                const data = await response.json();
-                setClassData(data);
-            } catch (error) {
-                console.error(error);
-            }
+          try {
+            const response = await axiosSecure.get('classes');
+            setClassData(response.data);
+          } catch (error) {
+            console.error(error);
+          }
         };
-
+    
         fetchData();
-    }, []);
+      }, [axiosSecure]);
 
     return (
         <Container>
@@ -41,15 +39,15 @@ export default function PopularInstructors() {
                                     <CardMedia
                                         component="img"
                                         height="140"
-                                        image={classItem.image}
-                                        alt={classItem.name}
+                                        image={classItem.instructorImage}
+                                        alt={classItem.instructorName}
                                     />
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="div">
-                                            {classItem.name}
+                                            {classItem.instructorName}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
-                                            {classItem.description}
+                                            {classItem.instructorEmail}
                                         </Typography>
                                     </CardContent>
                                 </Card>

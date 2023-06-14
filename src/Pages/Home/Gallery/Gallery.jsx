@@ -1,4 +1,4 @@
-import { Grid, Container, Typography } from '@mui/material';
+import { Grid, Container, Typography, Box } from '@mui/material';
 import { styled } from '@mui/system';
 
 const GallerySection = styled('div')(({ theme }) => ({
@@ -96,7 +96,8 @@ const Gallery = () => {
   ];
 
   return (
-    <GallerySection>
+    <Box my={7}>
+      <GallerySection>
       <Container>
         <SectionTitle variant="h4" component="h4">
           Our Gallery
@@ -117,6 +118,7 @@ const Gallery = () => {
         </Grid>
       </Container>
     </GallerySection>
+    </Box>
   );
 };
 
