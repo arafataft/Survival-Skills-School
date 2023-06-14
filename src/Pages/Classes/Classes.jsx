@@ -9,11 +9,15 @@ import { Box, Button, Container } from '@mui/material';
 import { AuthContext } from '../../Providers/AuthProvider';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
+import useAdmin from '../../hooks/useAdmin';
+import useInstructor from '../../hooks/useInstructor';
 
 export default function Classes() {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const { axiosSecure } = useAxiosSecure();
+  const [isAdmin] = useAdmin();
+  const [isInstructor] = useInstructor();
 
   const { data: classData = [], isLoading, isError, refetch } = useQuery({
     queryKey: ['approveclasses'],
@@ -99,7 +103,7 @@ export default function Classes() {
                     <Button
                       variant='outlined'
                       onClick={() => handleSelect(classItem)}
-                      disabled={classItem.availableSeats === 0}
+                      disabled={classItem.availableSeats === 0 || isAdmin || isInstructor}
                     >
                       Select
                     </Button>
