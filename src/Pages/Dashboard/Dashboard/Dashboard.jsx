@@ -113,20 +113,32 @@ export default function Dashboard() {
 
                     {isStudent && (
                         <React.Fragment>
-                            <ListItemButton component={RouterLink} to="././myselectedclasses">
-                                <ListItemIcon>
-                                    <ClassOutlined />
-                                </ListItemIcon>
-                                <ListItemText primary="My Selected Classes" />
-                            </ListItemButton>
+                            <Box m={1}>
+                            <motion.button whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}>
+                                <ListItemButton component={RouterLink} to="././myselectedclasses">
+                                    <ListItemIcon>
+                                        <ClassOutlined />
+                                    </ListItemIcon>
+                                    <ListItemText primary="My Selected Classes" />
+                                </ListItemButton>
+                            </motion.button>
+                            </Box>
 
-                            <ListItemButton component={RouterLink} to="././myenrolledclasses">
-                                <ListItemIcon>
-                                    <Class />
-                                </ListItemIcon>
-                                <ListItemText primary="My Enrolled Classes" />
-                            </ListItemButton>
+                            <Box m={1}>
+                            <motion.button whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}>
+                                <ListItemButton component={RouterLink} to="././myenrolledclasses">
+                                    <ListItemIcon>
+                                        <Class />
+                                    </ListItemIcon>
+                                    <ListItemText primary="My Enrolled Classes" />
+                                </ListItemButton>
+                            </motion.button>
+                            </Box>
 
+
+                            <Box m={1}>
                             <motion.button whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}>
                                 <ListItemButton component={RouterLink} to="././paymenthistory">
@@ -136,6 +148,7 @@ export default function Dashboard() {
                                     <ListItemText primary="Payment History" />
                                 </ListItemButton>
                             </motion.button>
+                            </Box>
 
                         </React.Fragment>
                     )}
