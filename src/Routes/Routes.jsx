@@ -18,6 +18,10 @@ import PaymentHistory from "../Pages/Dashboard/StudentDashboard/PaymentHistory/P
 import MyClasses from "../Pages/Dashboard/InstructorDashboard/MyClasses/MyClasses";
 import AddaClass from "../Pages/Dashboard/InstructorDashboard/AddaClass/AddaClass";
 import ErrorPage from "../Pages/ErrorPages/ErrorPages";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
+import InstructorRoute from "./InstructorRoute";
+import StudentRoute from "./StudentRoute";
 
 export const router = createBrowserRouter([
     {
@@ -47,7 +51,7 @@ export const router = createBrowserRouter([
         },
         {
           path:'dashboard',
-          element:<Dashboard/>,
+          element:<PrivateRoute><Dashboard/></PrivateRoute>,
           children:[
             {
               path:'',
@@ -55,35 +59,35 @@ export const router = createBrowserRouter([
             },
             {
               path:'manageclasses',
-              element:<ManageClasses/>
+              element:<AdminRoute><ManageClasses/></AdminRoute>
             },
             {
               path:'manageusers',
-              element:<ManageUsers/>
+              element:<AdminRoute><ManageUsers/></AdminRoute>
             },
             {
               path:'myselectedclasses',
-              element:<MySelectedClasses/>
+              element:<StudentRoute><MySelectedClasses/></StudentRoute>
             },
             {
               path:'myenrolledclasses',
-              element:<MyEnrolledClasses/>
+              element:<StudentRoute><MyEnrolledClasses/></StudentRoute>
             },
             {
               path:'payment',
-              element:<Payment/>
+              element:<StudentRoute><Payment/></StudentRoute>
             },
             {
               path:'paymenthistory',
-              element:<PaymentHistory/>
+              element:<StudentRoute><PaymentHistory/></StudentRoute>
             },
             {
               path:'myclasses',
-              element:<MyClasses/>
+              element:<InstructorRoute><MyClasses/></InstructorRoute>
             },
             {
               path:'addaclass',
-              element:<AddaClass/>
+              element:<InstructorRoute><AddaClass/></InstructorRoute>
             }
           ]
         }
