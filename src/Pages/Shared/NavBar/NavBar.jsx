@@ -13,6 +13,10 @@ import MenuItem from '@mui/material/MenuItem';
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Providers/AuthProvider';
+// import { DarkModeContext } from './DarkModeProvider';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { DarkModeContext } from '../../../Providers/DarkModeProvider';
 
 const pages = [
   { name: 'Home', link: '/' },
@@ -24,6 +28,7 @@ const settings = [{ name: 'Logout', link: '/login' }];
 
 function NavBar() {
   const { user, logOut } = useContext(AuthContext);
+  const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -137,6 +142,14 @@ function NavBar() {
                 Login
               </Button>
             )}
+            <IconButton
+            onClick={toggleDarkMode}
+            color="inherit"
+          >
+            {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
+
+
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"

@@ -1,0 +1,10 @@
+.home.dark {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .home.dark h1,
+  .home.dark p {
+    color: #fff;
+  }
+  
