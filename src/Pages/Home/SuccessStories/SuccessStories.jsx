@@ -1,4 +1,4 @@
-
+import './SuccessStories.css'
 const SuccessStories = () => {
   const stories = [
     {

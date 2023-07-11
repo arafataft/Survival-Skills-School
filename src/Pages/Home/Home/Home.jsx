@@ -8,6 +8,7 @@ import { DarkModeContext } from "../../../Providers/DarkModeProvider";
 import './Home.css';
 import Testimonials from "../Testimonials/Testimonials"; 
 import UpcomingEvents from "../UpcomingEvents/UpcomingEvents";
+import SuccessStories from "../SuccessStories/SuccessStories";
 
 const Home = () => {
     const { darkMode } = useContext(DarkModeContext);
@@ -23,6 +24,7 @@ const Home = () => {
 
                 <Testimonials/>
                 <UpcomingEvents/>
+                <SuccessStories/>
 
         </div>
 
