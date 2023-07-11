@@ -9,6 +9,7 @@ import './Home.css';
 import Testimonials from "../Testimonials/Testimonials"; 
 import UpcomingEvents from "../UpcomingEvents/UpcomingEvents";
 import SuccessStories from "../SuccessStories/SuccessStories";
+import FrequentlyAskedQuestions from "../FrequentlyAskedQuestions/FrequentlyAskedQuestions";
 
 const Home = () => {
     const { darkMode } = useContext(DarkModeContext);
@@ -25,6 +26,7 @@ const Home = () => {
                 <Testimonials/>
                 <UpcomingEvents/>
                 <SuccessStories/>
+                <FrequentlyAskedQuestions/>
 
         </div>
 

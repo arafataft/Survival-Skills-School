@@ -3,7 +3,7 @@ const SuccessStories = () => {
   const stories = [
     {
       id: 1,
-      name: 'John Doe',
+      name: 'J Doe',
       title: 'Overcoming Challenges in the Wilderness',
       story:
         "I attended Survival Skill School with little experience in outdoor survival. The instructors were patient, knowledgeable, and provided hands-on training. I'm now confident in my ability to navigate, build shelter, and find food in the wilderness.",
