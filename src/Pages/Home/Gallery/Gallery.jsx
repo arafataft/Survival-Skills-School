@@ -96,7 +96,7 @@ const Gallery = () => {
   ];
 
   return (
-    <Box mt={7}>
+    <Box mt={7} >
       <GallerySection>
       <Container>
         <SectionTitle variant="h4" component="h4">

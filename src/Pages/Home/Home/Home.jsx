@@ -7,6 +7,7 @@ import PopularInstructors from "../PopularInstructors/PopularInstrutors";
 import { DarkModeContext } from "../../../Providers/DarkModeProvider";
 import './Home.css';
 import Testimonials from "../Testimonials/Testimonials"; 
+import UpcomingEvents from "../UpcomingEvents/UpcomingEvents";
 
 const Home = () => {
     const { darkMode } = useContext(DarkModeContext);
@@ -21,6 +22,7 @@ const Home = () => {
                 <Zoom><Gallery /></Zoom>
 
                 <Testimonials/>
+                <UpcomingEvents/>
 
         </div>
 

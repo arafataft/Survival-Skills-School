@@ -2,6 +2,7 @@ import { Component } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import { Fade } from 'react-awesome-reveal';
+import './Banner.css'
 
 export class Banner extends Component {
     render() {
