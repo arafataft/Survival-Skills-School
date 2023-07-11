@@ -1,11 +1,12 @@
-import { Rotate, Slide, Zoom } from "react-awesome-reveal";
+import { useContext } from "react";
+import { Slide, Zoom } from "react-awesome-reveal";
 import { Banner } from "../Banner/Banner";
 import Gallery from "../Gallery/Gallery";
 import PopularClasses from "../PopularClasses/PopularClasses";
 import PopularInstructors from "../PopularInstructors/PopularInstrutors";
-import { useContext } from "react";
 import { DarkModeContext } from "../../../Providers/DarkModeProvider";
-import './Home.css'
+import './Home.css';
+import Testimonials from "../Testimonials/Testimonials"; 
 
 const Home = () => {
     const { darkMode } = useContext(DarkModeContext);
@@ -16,8 +17,10 @@ const Home = () => {
                 <Slide>
                     <PopularClasses />
                 </Slide>
-                <Rotate><PopularInstructors /></Rotate>
+                <Slide><PopularInstructors /></Slide>
                 <Zoom><Gallery /></Zoom>
+
+                <Testimonials/>
 
         </div>
 
